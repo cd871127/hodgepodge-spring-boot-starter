@@ -2,7 +2,7 @@ import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 buildscript {
     repositories {
-        maven{
+        maven {
             url = aliyunMevenRepo
         }
     }
@@ -13,6 +13,7 @@ buildscript {
 
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'java'
+apply from: 'dependencies.gradle'
 
 dependencyManagement {
     imports {
@@ -27,25 +28,11 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-    maven{
+    maven {
         url = aliyunMevenRepo
     }
 }
 
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
-dependencies {
-    compile 'org.springframework.boot:spring-boot-starter'
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
-    compile 'org.springframework:spring-context-support'
-
-    compile group: 'io.springfox', name: 'springfox-swagger2', version: swaggerVersion
-
-    //Quartz
-    compileOnly group: 'org.quartz-scheduler', name: 'quartz', version: quartzVersion
-    compileOnly group: 'org.quartz-scheduler', name: 'quartz-jobs', version: quartzVersion
-
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-}

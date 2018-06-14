@@ -1,3 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   io.github.cd871127.hodgepodge.swagger.config.SwaggerConfigure,\
-  io.github.cd871127.hodgepodge.quartz.config.QuartzJobConfigure
+  io.github.cd871127.hodgepodge.quartz.config.QuartzJobConfigure,\
+  io.github.cd871127.hodgepodge.test.TestConfig
