@@ -13,12 +13,8 @@ public enum ResponseCode {
 	GET_REQUEST_ID_FAILED("000105","获取请求ID失败"),
 
 	//数据操作相关代码0002xx
-    SUCCESS_SEARCH("000206", "查询成功"),
-    ERROR_SEARCH("020", "数据查询失败"),
-    SUCCESS_SAVE("000208", "保存成功"),
-    ERROR_SAVE("020", "数据保存失败"),
-    SUCCESS_DEL("010", "删除成功"),
-    ERROR_DEL("020", "数据删除失败");
+    EMPTY_RESULT("000201","结果集为空");
+
 
 	private String code;
     private String msg;

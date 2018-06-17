@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "返回响应数据")
-public class ResponseModel<T> {
+public class ServerResponse<T> {
     @ApiModelProperty(value = "响应代码")
     private String code;
     @ApiModelProperty(value = "响应消息")
@@ -12,11 +12,11 @@ public class ResponseModel<T> {
     @ApiModelProperty(value = "响应体", allowEmptyValue = true)
     private T data;
 
-    public ResponseModel(ResponseCode responseCode) {
+    public ServerResponse(ResponseCode responseCode) {
         setResponseCode(responseCode);
     }
 
-    public ResponseModel() {
+    public ServerResponse() {
 
     }
 
