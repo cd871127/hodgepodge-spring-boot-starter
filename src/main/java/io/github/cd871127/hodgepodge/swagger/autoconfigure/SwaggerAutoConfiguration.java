@@ -11,7 +11,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import javax.servlet.Filter;
 
 @Configuration
-@ConditionalOnProperty(prefix = "amc.swagger", value = "enable", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "hodgepodge.swagger", value = "enable", havingValue = "true", matchIfMissing = true)
 @EnableSwagger2
 public class SwaggerAutoConfiguration {
     @Bean
