@@ -36,3 +36,5 @@ repositories {
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
 
+compileJava.dependsOn(processResources)
+

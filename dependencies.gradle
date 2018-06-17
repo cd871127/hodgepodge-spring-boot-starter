@@ -2,15 +2,20 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter'
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-aop'
+    compile 'org.springframework.boot:spring-boot-starter-data-redis'
+//    compile "org.springframework.boot:spring-boot-configuration-processor"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
     compile 'org.springframework:spring-context-support'
 
     compile group: 'io.springfox', name: 'springfox-swagger2', version: swaggerVersion
 
+    compile group: 'com.alibaba', name: 'fastjson', version: fastJsonVersion
+
     //Quartz
-    compileOnly group: 'org.quartz-scheduler', name: 'quartz', version: quartzVersion
-    compileOnly group: 'org.quartz-scheduler', name: 'quartz-jobs', version: quartzVersion
+    compile group: 'org.quartz-scheduler', name: 'quartz', version: quartzVersion
+    compile group: 'org.quartz-scheduler', name: 'quartz-jobs', version: quartzVersion
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
