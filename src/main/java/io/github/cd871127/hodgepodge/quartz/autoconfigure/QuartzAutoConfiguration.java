@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -58,7 +57,7 @@ public class QuartzAutoConfiguration {
     @ConditionalOnProperty(prefix = "hodgepodge.quartz", value = "taskCacheType", havingValue = "redis")
     public RedisTaskManager redisTaskManager() {
         Scheduler scheduler = (Scheduler) applicationContext.getBean("quartzScheduler");
-        RedisTemplate redisTemplate= (RedisTemplate) applicationContext.getBean("redisTemplate");
+        RedisTemplate redisTemplate = (RedisTemplate) applicationContext.getBean("redisTemplate");
 
         RedisTaskManager redisTaskManager = new RedisTaskManager();
         redisTaskManager.setScheduler(scheduler);
