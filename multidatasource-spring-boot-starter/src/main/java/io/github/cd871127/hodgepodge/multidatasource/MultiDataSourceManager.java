@@ -1,5 +1,8 @@
 package io.github.cd871127.hodgepodge.multidatasource;
 
+/**
+ * @author Anthony
+ */
 public class MultiDataSourceManager {
 
     private static ThreadLocal<String> currentDataSource = new ThreadLocal<>();

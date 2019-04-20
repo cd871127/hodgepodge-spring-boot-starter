@@ -11,6 +11,9 @@ import org.apache.ibatis.session.RowBounds;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
+/**
+ * @author anthony
+ */
 @Intercepts(value = {
         @Signature(type = Executor.class,
                 method = "update",
@@ -18,36 +21,42 @@ import java.util.Properties;
         @Signature(type = Executor.class,
                 method = "query",
                 args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class,
-                        CacheKey.class, BoundSql.class})})
+                        CacheKey.class, BoundSql.class}),
+        @Signature(type = Executor.class,
+                method = "query",
+                args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})
+})
 public class MultiDataSourceInterceptor implements Interceptor {
-
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        MappedStatement mappedStatement = null;
-        for (Object o : invocation.getArgs()) {
-            if (o instanceof MappedStatement) {
-                mappedStatement = (MappedStatement) o;
+        MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
+        String signature = mappedStatement.getId();
+        String className = signature.substring(0, signature.lastIndexOf("."));
+        String methodName = signature.substring(signature.lastIndexOf(".") + 1);
+        Class<?> clazz = Class.forName(className);
+        TargetDataSource targetDataSource = clazz.getAnnotation(TargetDataSource.class);
+        Method[] methods = clazz.getMethods();
+        for (Method method : methods) {
+            if (method.getName().equals(methodName)) {
+                TargetDataSource tmp = method.getAnnotation(TargetDataSource.class);
+                targetDataSource = tmp == null ? targetDataSource : tmp;
                 break;
             }
         }
-        if (mappedStatement != null) {
-            String signature = mappedStatement.getId();
-            String className = signature.substring(0, signature.lastIndexOf("."));
-            String methodName = signature.substring(signature.lastIndexOf(".") + 1);
-            Class<?> clazz = Class.forName(className);
-            TargetDataSource targetDataSource = clazz.getAnnotation(TargetDataSource.class);
-            Method[] methods = clazz.getMethods();
-            for (Method method : methods) {
-                if (method.getName().equals(methodName)) {
-                    TargetDataSource tmp = method.getAnnotation(TargetDataSource.class);
-                    targetDataSource = tmp == null ? targetDataSource : tmp;
-                    break;
-                }
-            }
-            MultiDataSourceManager.setCurrentDataSource(targetDataSource == null ? null : targetDataSource.value());
+        String datasourceName = MultiDataSourceManager.getCurrentDataSource();
+        if (targetDataSource != null) {
+            MultiDataSourceManager.setCurrentDataSource(targetDataSource.value());
         }
-
-        return invocation.proceed();
+        Object result;
+        try {
+            result = invocation.proceed();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            MultiDataSourceManager.setCurrentDataSource(datasourceName);
+        }
+        return result;
     }
 
 
