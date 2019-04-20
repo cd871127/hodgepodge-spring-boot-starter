@@ -1,4 +1,4 @@
-package io.github.cd871127.hodgepodge.multidatasource;
+package io.github.cd871127.hodgepodge.mybatis.multidatasource;
 
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;

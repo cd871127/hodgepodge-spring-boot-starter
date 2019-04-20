@@ -1,2 +1,2 @@
 rootProject.name = 'hodgepodge-spring-boot-starter'
-include 'multidatasource-spring-boot-starter'
+include 'mybatis-multidatasource-spring-boot-starter'

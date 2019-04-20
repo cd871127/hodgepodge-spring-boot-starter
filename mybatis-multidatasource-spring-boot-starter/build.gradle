@@ -1,3 +1,4 @@
+group 'io.github.cd871127.hodgepodge.mybatis'
 dependencies {
     compileOnly group: 'org.mybatis', name: 'mybatis', version: '3.5.1'
     compileOnly group: 'org.springframework', name: 'spring-jdbc'

@@ -1,4 +1,4 @@
-package io.github.cd871127.hodgepodge.multidatasource;
+package io.github.cd871127.hodgepodge.mybatis.multidatasource;
 
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * @author Anthony
  */
-@ConfigurationProperties(prefix = "hodgepodge")
+@ConfigurationProperties(prefix = "hodgepodge.mybatis")
 public class MultiDataSourceProperties {
     private Map<String, DataSourceProperties> multiDatasource;
 

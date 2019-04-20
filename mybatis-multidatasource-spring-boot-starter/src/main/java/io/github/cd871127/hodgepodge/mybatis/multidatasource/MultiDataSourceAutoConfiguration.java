@@ -1,4 +1,4 @@
-package io.github.cd871127.hodgepodge.multidatasource;
+package io.github.cd871127.hodgepodge.mybatis.multidatasource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
