@@ -1,33 +1,93 @@
 import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
-plugins {
-    id 'java'
-    id 'org.springframework.boot' version '2.1.4.RELEASE' apply false
-    id 'io.spring.dependency-management' version '1.0.6.RELEASE'
-}
-
-dependencyManagement {
-    imports {
-        mavenBom(SpringBootPlugin.BOM_COORDINATES)
+buildscript {
+    repositories {
+        maven {
+            url aliyunMevenRepo
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
 
-group 'io.github.cd871127'
-version '0.0.1-SHAPSHOT'
+allprojects {
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+    group 'io.github.cd871127.hodgepodge'
+    version '0.0.1-SHAPSHOT'
 
-repositories {
-    maven {
-        url = aliyunMevenRepo
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'io.spring.dependency-management'
+
+
+    repositories {
+        maven {
+            url = aliyunMevenRepo
+        }
+    }
+
+
+    dependencyManagement {
+        imports {
+            mavenBom(SpringBootPlugin.BOM_COORDINATES)
+        }
+    }
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+    dependencies {
+        annotationProcessor group: 'org.springframework.boot', name: 'spring-boot-autoconfigure'
+    }
+
+}
+
+
+subprojects {
+    apply plugin: 'maven-publish'
+
+    task sourceJar(type: Jar) {
+        from sourceSets.main.allJava
+    }
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                //指定group/artifact/version信息，可以不填。默认使用项目group/name/version作为groupId/artifactId/version
+                groupId project.group
+                artifactId project.name
+                version project.version
+                //如果是war包填写components.web，如果是jar包填写components.java
+                from components.java
+
+                //配置上传源码
+                artifact sourceJar {
+                    classifier "sources"
+                }
+
+            }
+        }
+//        repositories {
+//            maven {
+//                //指定要上传的maven私服仓库
+//                url = "http://jenkins.maxrocky.com:8080/maven/content/repositories/thirdparty/"
+//                //认证用户和密码
+//                credentials {
+//                    username 'admin'
+//                    password 'maxrocky5721'
+//                }
+//            }
+//        }
     }
 }
 
-[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
-dependencies {
-    compile group: 'org.mybatis', name: 'mybatis', version: '3.5.1'
-    compile group: 'org.springframework', name: 'spring-jdbc'
-    compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure'
-}
+
+
+
+
+
+

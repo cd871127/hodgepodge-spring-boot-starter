@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  io.github.cd871127.hodgepodge.multidatasource.MultiDataSourceAutoConfiguration
