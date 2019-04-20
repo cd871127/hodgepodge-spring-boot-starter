@@ -40,7 +40,16 @@ allprojects {
     [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
     dependencies {
-        annotationProcessor group: 'org.springframework.boot', name: 'spring-boot-autoconfigure'
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+        compileOnly group: 'org.springframework.boot', name: 'spring-boot-autoconfigure'
+        compileOnly group: 'org.springframework', name: 'spring-context'
+        compileOnly group: 'ch.qos.logback', name: 'logback-core', version: logbackVersion
+        compileOnly group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
+
+        compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.3'
+
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+        testCompile group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
     }
 
 }
